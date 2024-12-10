@@ -1,6 +1,24 @@
 {
-    "title":"Blog Title",
-    "subTitle":"Blog description",
+    "title":"杨浚宇的博客",
+    "subTitle":"欢迎光临",
     "avatarUrl":"https://github.githubassets.com/favicons/favicon.svg",
+    "homeUrl":"https://blog.yangjunyu.us.kg/",
+    "startSite":"07/18/2024",
+    "onePageListNum":15,
+    "commentLabelColor":"#006b75",
+    "yearColorList":["#bc4c00", "#0969da", "#1f883d", "#A333D0"],
+    "i18n":"CN",
+    "UTC":8,
+    "themeMode":"manual",
+    "dayTheme":"light",
+    "nightTheme":"dark_colorblind",
+    "urlMode":"issue",
+    "rssSplit":"sentence",
+    "primerCSS":"<link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />",
+    "needComment":1,
+    "script":"<script>document.getElementById('cmButton').click();</script>",
+    "allHead":"<script src='https://blog.meekdai.com/assets/GmeekVercount.js'></script>",
+    "script":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/lightbox.js'></script>",
+    "GMEEK_VERSION":"last"
     "GMEEK_VERSION":"last"
 }
