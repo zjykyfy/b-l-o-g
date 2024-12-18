@@ -1,63 +1,114 @@
-//创造主体函数
-    function Fire(options){
-        this.x = options.x;
-        this.y = options.y;
-        this.box = options.parent
-        this.init();
+(function() {
+    // 创建Canvas元素
+    const canvas = document.createElement('canvas');
+    document.body.appendChild(canvas);
+
+    // 获取Canvas上下文
+    const ctx = canvas.getContext('2d');
+
+    // 存储烟花的数组
+    let fireworks = [];
+
+    // 设置Canvas样式和位置
+    function setCanvasStyle() {
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.pointerEvents = 'none'; // 不影响原网页的鼠标事件
     }
-    //初始状态，创建燃放的烟花并让它出现在鼠标点击位置的正下方
-    Fire.prototype.init = function(){
-        this.div = document.createElement("div");
-        this.div.className = "fire";
-        this.div.style.left = this.x + "px";
-        // this.div.style.top = this.y;
-        this.div.style.background = randomColor();
-        this.box.appendChild(this.div);
-        //烟花上升
-        this.fly();
+
+    // 设置Canvas大小
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
-    //让烟花上升到鼠标点击的高度，然后让其消失并创建小烟花
-    Fire.prototype.fly =function(){
-        move(this.div,{
-            top:this.y
-        },()=>{
-            this.div.remove();
-            this.creatSmall();
-        })
+
+    // 初始化Canvas样式和大小
+    setCanvasStyle();
+    resizeCanvas();
+
+    // 窗口大小改变时重新设置Canvas大小
+    window.addEventListener('resize', function() {
+        resizeCanvas();
+    });
+
+    // 鼠标点击事件监听器
+    document.addEventListener('click', function(event) {
+        createFirework(event.clientX, event.clientY);
+    });
+
+    // 创建烟花函数
+    function createFirework(x, y) {
+        fireworks.push(new Firework(x, y));
     }
-    //创建小烟花，设置其宽高位置为鼠标点击位置
-    Fire.prototype.creatSmall = function(){
-        //圆周烟花的半径
-        var r = random(100,200);
-        for(var i=0;i<12;i++){
-            let small = document.createElement("div");
-            small.className = "small";
-            small.style.left = this.x + "px";
-            small.style.top = this.y + "px";
-            small.style.background = randomColor();
-            this.box.appendChild(small);
-            //计算小烟花运动至指定圆周的位置
-            var l = Math.round(Math.sin(Math.PI/180*30*i)*r) + this.x;
-            var t = Math.round(Math.cos(Math.PI/180*30*i)*r) + this.y;
-            //让小烟花到达目标处后消失不见
-            move(small,{
-                left:l,
-                top:t
-            },function(){
-                small.remove();
-            });
+
+    // 烟花对象构造函数
+    function Firework(x, y) {
+        this.x = x;
+        this.y = y;
+        this.particles = [];
+
+        // 创建烟花粒子
+        for (let i = 0; i < 30; i++) {
+            this.particles.push(new Particle(this.x, this.y));
+        }
+
+        // 更新和绘制烟花粒子
+        this.update = function() {
+            for (let i = 0; i < this.particles.length; i++) {
+                this.particles[i].update();
+                this.particles[i].draw();
+            }
         }
     }
 
+    // 烟花粒子对象构造函数
+    function Particle(x, y) {
+        this.x = x + (Math.random() - 0.5) * 10; // 将烟花爆炸范围控制在鼠标周围
+        this.y = y + (Math.random() - 0.5) * 10; // 将烟花爆炸范围控制在鼠标周围
+        this.radius = Math.random() * 2 + 1;
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        this.velocity = {
+            x: Math.random() * 6 - 3,
+            y: Math.random() * 6 - 3
+        };
+        this.alpha = 1;
 
-    var obox = document.querySelector(".box");
-    obox.onclick = function(eve){
-        var e = eve || window.event;
-        new Fire({
-            x:e.offsetX,
-            y:e.offsetY,
-            parent:this
-        });
-        
+        // 更新粒子位置和透明度
+        this.update = function() {
+            this.x += this.velocity.x;
+            this.y += this.velocity.y;
+            this.alpha -= 0.01;
+        }
 
+        // 绘制粒子
+        this.draw = function() {
+            ctx.save();
+            ctx.globalAlpha = this.alpha;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
     }
+
+    // 动画循环
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 更新和绘制烟花
+        for (let i = 0; i < fireworks.length; i++) {
+            fireworks[i].update();
+        }
+
+        // 清除已消失的烟花
+        fireworks = fireworks.filter(function(firework) {
+            return firework.particles[0].alpha > 0;
+        });
+    }
+
+    animate();
+
+})();
