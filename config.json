@@ -1,6 +1,7 @@
 {
     "title":"杨浚宇的博客",
     "subTitle":"欢迎光临",
+    "faviconUrl":"https://github.githubassets.com/favicons/favicon.svg",
     "avatarUrl":"https://github.githubassets.com/favicons/favicon.svg",
     "homeUrl":"https://blog.yangjunyu.us.kg/",
     "singlePage":["link","about"],
