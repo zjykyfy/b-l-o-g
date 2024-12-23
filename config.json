@@ -1,8 +1,6 @@
 {
     "title":"杨浚宇的博客",
     "subTitle":"欢迎光临",
-    "displayTitle":"杨浚宇的博客",
-    "faviconUrl":"https://github.githubassets.com/favicons/favicon.svg",
     "avatarUrl":"https://github.githubassets.com/favicons/favicon.svg",
     "homeUrl":"https://blog.yangjunyu.us.kg/",
     "singlePage":["link","about"],
@@ -21,7 +19,6 @@
     "indexScript":"<script async src='//blog.yangjunyu.us.kg/js/stars.js'></script>",
     "primerCSS":"<link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />",
     "allHead":"<script src='https://blog.yangjunyu.us.kg/js/vercount.js'></script><script src='https://live.yangjunyu.us.kg/zhuti.js'></script>",
-    "script":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/lightbox.js'></script>",
     "needComment":1,
     "GMEEK_VERSION":"main"
 }
